@@ -23,3 +23,4 @@ buttonLog.addEventListener("click", async () => {
         alert("2 - Debe ingresar Usuario y Clave Correctas");
     }
     });
+

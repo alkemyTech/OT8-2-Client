@@ -14,6 +14,10 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join( __dirname , 'public' , 'login.html'));
 });
 
+app.get('/cargarSaldo', (req, res) => {
+  res.sendFile(path.join( __dirname , 'public/cargarSaldo' , 'cargarSaldo.html'));
+});
+
 app.post("/loginback", async (req, res) => {
 try{
   const data = req.body;
@@ -31,11 +35,28 @@ try{
 }
 });
 
+app.post("/registerback", async (req, res) => {
+  try{
+    const data = req.body;
+     const response = await postData("auth/register",{
+      firstName : data.firstName,
+      lastName : data.lastName,
+      email : data.email,
+      password : data.password
+    }); 
+    res.json(response);
+  } catch(error){
+    if(error.response.status === 403){
+      res.status(403).json({error: "Error 403"});
+    } else {
+      console.log(error)
+    }
+  }
+  });
+
 app.get('/', (req, res) => {
   res.sendFile(path.join( __dirname , 'public' , 'home.html'));
 });
-
-
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
