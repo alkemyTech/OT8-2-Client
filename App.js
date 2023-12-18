@@ -14,6 +14,10 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join( __dirname , 'public' , 'login.html'));
 });
 
+
+app.get('/plazoFijo', (req, res) => {
+  res.sendFile(path.join( __dirname , 'public/plazoFijo' , 'plazoFijo.html'));
+});
 app.get('/cargarSaldo', (req, res) => {
   res.sendFile(path.join( __dirname , 'public/cargarSaldo' , 'cargarSaldo.html'));
 });
