@@ -8,9 +8,13 @@ const apiService = axios.create({
 });
 
 
-const fetchData = async (endpoint) => {
+const fetchData = async (endpoint, auth) => {
     try {
-        const response = await apiService.get(endpoint);
+        const headers = {
+            'Authorization': auth,
+            'Content-Type': 'application/json'
+        }
+        const response = await apiService.get(endpoint, { headers });
         return response.data;
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);

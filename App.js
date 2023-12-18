@@ -22,13 +22,25 @@ app.get('/cargarSaldo', (req, res) => {
   res.sendFile(path.join( __dirname , 'public/cargarSaldo' , 'cargarSaldo.html'));
 });
 
+app.get('/accountback', async (req, res) => {
+    try {
+        const request = req.query
+        console.log("TOKEEEEEEEENNNNNN: "+request.token)
+        const responce = await fetchData("/accounts", request.token)
+
+        res.json(responce)
+    }catch (e){
+        console.log(e)
+    }
+})
+
 app.post("/loginback", async (req, res) => {
 try{
   const data = req.body;
    const response = await postData("auth/login",{
     email: data.email,
     password: data.password
-  }); 
+  });
   res.json(response);
 } catch(error){
   if(error.response.status === 403){
@@ -47,7 +59,7 @@ app.post("/registerback", async (req, res) => {
       lastName : data.lastName,
       email : data.email,
       password : data.password
-    }); 
+    });
     res.json(response);
   } catch(error){
     if(error.response.status === 403){
@@ -57,6 +69,17 @@ app.post("/registerback", async (req, res) => {
     }
   }
   });
+
+app.get('/transactionback',async (req, res) => {
+    try {
+        const request = req.query
+        console.log("TOKEEEEEEEENNNNNN: "+request.token)
+        const responce = await fetchData("/accounts/balance", request.token)
+        res.json(responce)
+    }catch (e) {
+        console.log(e)
+    }
+});
 
 app.get('/', (req, res) => {
   res.sendFile(path.join( __dirname , 'public' , 'home.html'));

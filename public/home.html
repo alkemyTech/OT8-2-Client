@@ -11,45 +11,102 @@
   />
   <title>Wallkemy</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <style>
+    /* Establece una altura máxima para el contenedor con scroll */
+    .scrollable-container {
+      max-height: 300px; /* Puedes ajustar la altura según tus necesidades */
+      width: 70%;
+    }
+    .container{
+      max-height: 300px;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="./images/assets/WA logo.jpg" alt="Bootstrap" width="65" height="30">
-      </a>  
+      </a>
       <a class="navbar-brand" href="#" id="userName"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-inicio-tab" data-bs-toggle="pill" data-bs-target="#pills-inicio" type="button" role="tab" aria-controls="pills-inicio" aria-selected="true">Inicio</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Transacciones</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-transacciones-tab" data-bs-toggle="pill" data-bs-target="#pills-transacciones" type="button" role="tab" aria-controls="pills-transacciones" aria-selected="false">Transacciones</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Gastos</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-gastos-tab" data-bs-toggle="pill" data-bs-target="#pills-gastos" type="button" role="tab" aria-controls="pills-gastos" aria-selected="false">Gastos</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Plaso Fijo</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-transferencias-tab" data-bs-toggle="pill" data-bs-target="#pills-transferencias" type="button" role="tab" aria-controls="pills-transferencias" aria-selected="false">Transferencias</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Transferencias</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-logout-tab" data-bs-toggle="pill" data-bs-target="#pills-logout" type="button" role="tab" aria-controls="pills-logout" aria-selected="false">Logout</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.html" id="Logout">Logout</a>
-          </li>          
         </ul>
+
       </div>
     </div>
   </nav>
 
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-inicio" role="tabpanel" aria-labelledby="pills-inicio-tab" tabindex="0">
+      <div class="mx-auto container">
+        <div class="row" id="cardAccount">
 
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="tab-pane fade" id="pills-transacciones" role="tabpanel" aria-labelledby="pills-transacciones-tab" tabindex="0">
+      <h2>Cuenta en ARS: <b id="accountArs"></b></h2>
+      <h2>Cuenta en USD: <b id="accountUsd"></b></h2>
+      <div class="scrollable-container overflow-auto mx-auto">
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Monto</th>
+          </tr>
+          </thead>
+
+          <tbody id="transactions-back">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-gastos" role="tabpanel" aria-labelledby="pills-gastos-tab" tabindex="0">Gastos</div>
+    <div class="tab-pane fade" id="pills-transferencias" role="tabpanel" aria-labelledby="pills-transferencias-tab" tabindex="0">Transferencias</div>
+    <div class="tab-pane fade" id="pills-logout" role="tabpanel" aria-labelledby="pills-logout-tab" tabindex="0">Logout</div>
+
+
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="home.js"> </script>
+  <script src="./transacciones/transacciones.js"></script>
 </body>
 </html>
