@@ -81,6 +81,21 @@ app.get('/transactionback',async (req, res) => {
     }
 });
 
+app.post('/depositback',async (req, res) => {
+  try {
+      const request = req.body
+      const response = await postData("/transactions/deposit", {
+        accountId : request.accountId,
+        amount: request.amount,
+        description: request.description
+      } )
+      res.json(response)
+  }catch (e) {
+      console.log(e)
+  }
+});
+
+
 app.get('/', (req, res) => {
   res.sendFile(path.join( __dirname , 'public' , 'home.html'));
 });
