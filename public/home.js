@@ -1,5 +1,5 @@
-const inicionBtn = document.getElementById("pills-inicio-tab")
 const cardAccount = document.getElementById("cardAccount")
+const inicionBtn = document.getElementById("pills-inicio-tab")
 
 let userName = document.getElementById('userName');
 userName.textContent = sessionStorage.getItem("userName");
@@ -14,19 +14,19 @@ inicionBtn.addEventListener("click", async () => {
         }
     })
 
-    
+
     response.data.map(account => {
-        
+
         const card = `
         <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title"> Saldo en ${account.currency + ': ' + account.balance}</h5>
             <p class="card-text"> Informacion de Cuenta.</p>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#account-${account.accountId}">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#account-${account.aaccountId}">
             Realizar Depósito en ${account.currency}
           </button>          
-          <div class="modal fade" id="account-${account.accountId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal fade" id="account-${account.aaccountId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -50,7 +50,9 @@ inicionBtn.addEventListener("click", async () => {
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
        
-        <button id="depositobtn" type="submit" class="btn btn-primary" >Depositar</button>
+        <button id="depositobtn" type="button" class="btn btn-primary" account-id="${account.aaccountId}" data-bs-toggle="modal" data-bs-target="#account-${account.aaccountId}">
+    Realizar Depósito en ${account.currency}
+        </button>
         
         </div>
     </div>
@@ -61,8 +63,31 @@ inicionBtn.addEventListener("click", async () => {
       </div>
       
       `
-     
+
         cardAccount.innerHTML += card;
+
+        const depositBtn = document.getElementById("depositobtn")
+        const inputMonto = document.getElementById("monto")
+        const inputConsepto = document.getElementById("descripcion")
+
+
+        depositBtn.addEventListener('click', async (event) => {
+            const target = event.target
+            console.log(target)
+            const accountId = target.getAttribute("account-id");
+            if (accountId){
+                console.log("ACCOUNT IDDDDDDDDDD: " + accountId)
+            }else {
+                console.log("NONONO, invesil")
+            }
+            const response = await axios.post("/depositback", {
+                accountId: accountId,
+                amount: inputMonto.value,
+                description: inputConsepto.value
+            })
+            console.log("RESPUESTAAAAAAAAAAA: " + response)
+            inicionBtn.click();
+        })
     })
 })
 

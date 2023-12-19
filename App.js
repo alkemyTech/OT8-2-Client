@@ -84,11 +84,13 @@ app.get('/transactionback',async (req, res) => {
 app.post('/depositback',async (req, res) => {
   try {
       const request = req.body
+      console.log(request)
       const response = await postData("/transactions/deposit", {
         accountId : request.accountId,
         amount: request.amount,
         description: request.description
       } )
+      console.log(response)
       res.json(response)
   }catch (e) {
       console.log(e)
