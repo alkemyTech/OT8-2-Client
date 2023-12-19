@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Prestamo</title>
+  <link rel="stylesheet" href="prestamo.css">
+  <style>
+    /* Estilo para la tarjeta modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      document.getElementById('plazoFijoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var monto = parseFloat(document.getElementById('monto').value);
+        var dias = parseInt(document.getElementById('dias').value);
+        var tasa = 0.05; // Tasa de interés mensual del 5%
+        var fechaInicio = new Date(document.getElementById('fechaInicio').value);
+        var fechaFin = new Date(fechaInicio.getTime() + dias * 24 * 60 * 60 * 1000);
+        var montoFinal = monto * Math.pow((1 + tasa), (dias/30));
+        var interes = montoFinal - monto;
+        document.getElementById('montoInicial').innerText = 'Monto Inicial: ' + monto.toFixed(2);
+        document.getElementById('montoFinal').innerText = 'Monto Final: ' + montoFinal.toFixed(2);
+        document.getElementById('interes').innerText = 'Interés: ' + interes.toFixed(2);
+        document.getElementById('fechaTerminacion').innerText = 'Fecha de Terminación: ' + fechaFin.toISOString().split('T')[0];
+        document.getElementById('myModal').style.display = 'block';
+      });
+      document.getElementsByClassName('close')[0].onclick = function() {
+        document.getElementById('myModal').style.display = 'none';
+      }
+    };
+  </script>
+</head>
+<body>
+  <h1>Simular Préstamo</h1>
+  <form id="plazoFijoForm">
+    <div>
+      <label for="monto">Monto:</label>
+      <input type="number" id="monto" name="monto" min="0" step="0.01" required>
+    </div>
+    <div>
+      <label for="fechaInicio">Fecha de Inicio:</label>
+      <input type="date" id="fechaInicio" name="fechaInicio" required>
+    </div>
+    <div>
+      <label for="dias">Días de plazo (30/60/90, etc.):</label>
+      <input type="number" id="dias" name="dias" min="1" required>
+    </div>
+    <button type="submit">Simular Préstamo</button>
+  </form>
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="montoInicial"></p>
+      <p id="montoFinal"></p>
+      <p id="interes"></p>
+      <p id="fechaTerminacion"></p>
+      <p>Tasa del 5% mensual</p>
+      <button id="solicitarPrestamo">Solicitar Préstamo</button>
+    </div>
+  </div>
+</body>
+</html>
